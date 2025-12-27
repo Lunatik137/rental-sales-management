@@ -71,11 +71,12 @@ public class CategoryDAO extends DBContext {
      * @return boolean - true nếu thêm thành công, false nếu thất bại
      */
     public boolean addCategory(Category category) {
-        String sql = "INSERT INTO Categories (name, description, status) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Categories (name, description, image_url, status) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, category.getName());
             stmt.setString(2, category.getDescription());
-            stmt.setBoolean(3, category.isStatus());
+            stmt.setString(3, category.getImageUrl());
+            stmt.setBoolean(4, category.isStatus());
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error adding category: {0}", e.getMessage());
@@ -90,12 +91,13 @@ public class CategoryDAO extends DBContext {
      * @return boolean - true nếu cập nhật thành công, false nếu thất bại
      */
     public boolean updateCategory(Category category) {
-        String sql = "UPDATE Categories SET name = ?, description = ?, status = ? WHERE id = ?";
+        String sql = "UPDATE Categories SET name = ?, description = ?, image_url = ?, status = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, category.getName());
             stmt.setString(2, category.getDescription());
-            stmt.setBoolean(3, category.isStatus());
-            stmt.setInt(4, category.getId());
+            stmt.setString(3, category.getImageUrl());
+            stmt.setBoolean(4, category.isStatus());
+            stmt.setInt(5, category.getId());
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error updating category: {0}", e.getMessage());
@@ -128,6 +130,7 @@ public class CategoryDAO extends DBContext {
         category.setId(rs.getInt("id"));
         category.setName(rs.getString("name"));
         category.setDescription(rs.getString("description"));
+        category.setImageUrl(rs.getString("image_url"));
         category.setStatus(rs.getBoolean("status"));
         return category;
     }

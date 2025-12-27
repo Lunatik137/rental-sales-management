@@ -50,7 +50,15 @@ public class ProductServlet extends HttpServlet {
             Product product = productDAO.getProductById(productId);
             
             if (product != null) {
+                // Lấy sản phẩm tương tự cùng category
+                List<Product> similarProducts = productDAO.getSimilarProducts(
+                    product.getCategoryId(), 
+                    productId, 
+                    4
+                );
+                
                 request.setAttribute("product", product);
+                request.setAttribute("similarProducts", similarProducts);
                 request.getRequestDispatcher("/product-detail.jsp").forward(request, response);
                 return;
             } else {
@@ -59,30 +67,56 @@ public class ProductServlet extends HttpServlet {
             }
         }
         
+        // Phân trang
+        int page = 1;
+        int pageSize = 12; // Số sản phẩm mỗi trang
+        try {
+            String pageParam = request.getParameter("page");
+            if (pageParam != null && !pageParam.isEmpty()) {
+                page = Integer.parseInt(pageParam);
+                if (page < 1) page = 1;
+            }
+        } catch (NumberFormatException e) {
+            page = 1;
+        }
+        
         // Lấy danh sách sản phẩm
         List<Product> products;
+        int totalProducts = 0;
+        int totalPages = 0;
         
-        // Nếu có keyword -> tìm kiếm
+        // Nếu có keyword -> tìm kiếm (không phân trang cho search)
         if (keyword != null && !keyword.trim().isEmpty()) {
             products = productDAO.searchProducts(keyword);
+            totalProducts = products.size();
+            totalPages = (int) Math.ceil((double) totalProducts / pageSize);
             request.setAttribute("keyword", keyword);
         }
         // Nếu có category -> lọc theo danh mục
         else if (categoryParam != null && !categoryParam.isEmpty()) {
             try {
                 int categoryId = Integer.parseInt(categoryParam);
-                products = productDAO.getProductsByCategory(categoryId);
+                products = productDAO.getProductsByCategoryWithPagination(categoryId, page, pageSize);
+                totalProducts = productDAO.getTotalProductsByCategory(categoryId);
+                totalPages = (int) Math.ceil((double) totalProducts / pageSize);
                 request.setAttribute("selectedCategoryId", categoryId);
             } catch (NumberFormatException e) {
-                products = productDAO.getAllProducts();
+                products = productDAO.getAllProductsWithPagination(page, pageSize);
+                totalProducts = productDAO.getTotalProducts();
+                totalPages = (int) Math.ceil((double) totalProducts / pageSize);
             }
         }
         // Mặc định: lấy tất cả sản phẩm
         else {
-            products = productDAO.getAllProducts();
+            products = productDAO.getAllProductsWithPagination(page, pageSize);
+            totalProducts = productDAO.getTotalProducts();
+            totalPages = (int) Math.ceil((double) totalProducts / pageSize);
         }
         
         request.setAttribute("products", products);
+        request.setAttribute("currentPage", page);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("totalProducts", totalProducts);
         request.getRequestDispatcher("/products.jsp").forward(request, response);
     }
 }

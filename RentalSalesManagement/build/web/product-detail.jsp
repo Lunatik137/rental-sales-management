@@ -13,174 +13,39 @@
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
-            background-color: #f5f6fa;
-            color: #2f3542;
+            background: radial-gradient(circle at 20% 20%, #f1f6ff 0, #f8fbff 40%, #f0f4ff 100%);
+            color: #0f172a;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .product-detail {
-            background: white;
-            border-radius: 10px;
-            padding: 40px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .product-header {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .product-image-large {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 10px;
-            background: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 120px;
-        }
-
-        .product-info-detail h1 {
-            font-size: 32px;
-            margin-bottom: 20px;
-            color: #2f3542;
-        }
-
-        .product-type-badge {
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 5px;
-            font-size: 14px;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-
-        .type-sale {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .type-rental {
-            background: #cce5ff;
-            color: #004085;
-        }
-
-        .type-both {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .price-section {
-            margin: 30px 0;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-        }
-
-        .price-item-large {
-            margin-bottom: 15px;
-        }
-
-        .price-label-large {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 5px;
-        }
-
-        .price-value-large {
-            font-size: 28px;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .stock-status {
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-
-        .stock-available {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .stock-low {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .stock-out {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-        .description-section {
-            margin-top: 40px;
-        }
-
-        .description-section h2 {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #2f3542;
-        }
-
-        .description-section p {
-            line-height: 1.8;
-            color: #666;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .btn {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .btn-primary {
-            background: #667eea;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6268;
-        }
-
-        .btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 30px 20px 60px; }
+        .product-detail { background: #ffffff; border-radius: 20px; padding: 32px; box-shadow: 0 18px 44px rgba(15, 79, 145, 0.08); border: 1px solid rgba(15, 140, 230, 0.1); }
+        .product-header { display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; margin-bottom: 20px; }
+        .product-image-large { width: 100%; height: 400px; object-fit: cover; border-radius: 18px; background: linear-gradient(135deg, #dfeeff, #c1dfff); display: flex; align-items: center; justify-content: center; font-size: 120px; color: #0b6fd1; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55); }
+        .product-info-detail h1 { font-size: 30px; margin: 0 0 10px; color: #0f2d4f; font-weight: 800; }
+        .product-rating-detail { color: #ffc107; font-size: 16px; margin-bottom: 15px; }
+        .product-type-badge { display: inline-block; padding: 8px 16px; border-radius: 10px; font-size: 14px; margin-bottom: 16px; font-weight: 700; }
+        .type-sale { background: #e6f6ed; color: #1d6a35; }
+        .type-rental { background: #dcefff; color: #0f5aa0; }
+        .type-both { background: #fff3d9; color: #8b5a00; }
+        .price-section { margin: 20px 0; padding: 18px; background: #f8fbff; border-radius: 14px; border: 1px solid rgba(15, 140, 230, 0.1); }
+        .price-item-large { margin-bottom: 12px; }
+        .price-label-large { font-size: 13px; color: #7086a3; margin-bottom: 5px; }
+        .price-value-large { font-size: 26px; font-weight: 800; color: #0b6fd1; }
+        .stock-status { padding: 14px; border-radius: 12px; margin-bottom: 14px; font-weight: 700; }
+        .stock-available { background: #e6f6ed; color: #1d6a35; }
+        .stock-low { background: #fff3d9; color: #8b5a00; }
+        .stock-out { background: #fbe3e3; color: #b02a37; }
+        .description-section { margin-top: 20px; }
+        .description-section h2 { font-size: 22px; margin-bottom: 10px; color: #0f2d4f; font-weight: 800; }
+        .description-section p { line-height: 1.8; color: #63788e; }
+        .action-buttons { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+        .btn { padding: 14px 26px; border: none; border-radius: 12px; font-size: 15px; font-weight: 800; cursor: pointer; text-decoration: none; display: inline-block; text-align: center; transition: all 0.3s; }
+        .btn-primary { background: linear-gradient(120deg, #0f8ce6, #0a6fcc); color: white; box-shadow: 0 14px 28px rgba(15, 140, 230, 0.25); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 18px 36px rgba(15, 140, 230, 0.35); }
+        .btn-secondary { background: #e7eff7; color: #0f2d4f; }
+        .btn-secondary:hover { background: #d6e6f5; }
+        .btn:disabled { background: #ccc; cursor: not-allowed; }
+        @media (max-width: 900px) { .product-header { grid-template-columns: 1fr; } .product-image-large { height: 320px; } }
     </style>
 </head>
 <body>
@@ -206,7 +71,7 @@
                             </c:choose>
                         </div>
                         <div class="product-info-detail">
-                            <span class="product-type-badge 
+                            <span class="product-type-badge
                                 <c:choose>
                                     <c:when test="${product.type == 'sale'}">type-sale</c:when>
                                     <c:when test="${product.type == 'rental'}">type-rental</c:when>
@@ -219,8 +84,9 @@
                                 </c:choose>
                             </span>
                             <h1>${product.name}</h1>
+                            <div class="product-rating-detail">⭐⭐⭐⭐⭐ (4.8/5) - 128 đánh giá</div>
                             
-                            <div class="stock-status 
+                            <div class="stock-status
                                 <c:choose>
                                     <c:when test="${product.stock > 10}">stock-available</c:when>
                                     <c:when test="${product.stock > 0}">stock-low</c:when>
@@ -284,6 +150,11 @@
 
                     <div class="description-section">
                         <h2>Mô tả sản phẩm</h2>
+                        <c:if test="${not empty product.category and not empty product.category.name}">
+                            <p style="color: #7086a3; font-size: 14px; margin-bottom: 10px;">
+                                <strong>Danh mục:</strong> ${product.category.name}
+                            </p>
+                        </c:if>
                         <p>
                             <c:choose>
                                 <c:when test="${not empty product.description}">
@@ -295,6 +166,47 @@
                             </c:choose>
                         </p>
                     </div>
+
+                    <!-- Similar Products Section -->
+                    <c:if test="${not empty similarProducts}">
+                        <div class="description-section" style="margin-top: 40px;">
+                            <h2>Sản phẩm tương tự</h2>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
+                                <c:forEach var="similar" items="${similarProducts}">
+                                    <a href="products?action=detail&id=${similar.id}" style="text-decoration: none; color: inherit;">
+                                        <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: transform 0.3s;">
+                                            <div style="width: 100%; height: 150px; background: linear-gradient(135deg, #dfeeff, #c1dfff); display: flex; align-items: center; justify-content: center; font-size: 48px;">
+                                                <c:choose>
+                                                    <c:when test="${not empty similar.imageUrl}">
+                                                        <img src="${similar.imageUrl}" alt="${similar.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                                                    </c:when>
+                                                    <c:otherwise>📦</c:otherwise>
+                                                </c:choose>
+                                            </div>
+                                            <div style="padding: 15px;">
+                                                <h3 style="margin: 0 0 10px; font-size: 14px; color: #0f2d4f; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 40px;">
+                                                    ${similar.name}
+                                                </h3>
+                                                <div style="font-size: 16px; font-weight: bold; color: #0b6fd1;">
+                                                    <c:choose>
+                                                        <c:when test="${similar.salePrice != null && similar.salePrice > 0}">
+                                                            <fmt:formatNumber value="${similar.salePrice}" type="number" /> đ
+                                                        </c:when>
+                                                        <c:when test="${similar.rentalPrice != null && similar.rentalPrice > 0}">
+                                                            <fmt:formatNumber value="${similar.rentalPrice}" type="number" /> đ/ngày
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <fmt:formatNumber value="${similar.price}" type="number" /> đ
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </c:if>
                 </div>
             </c:otherwise>
         </c:choose>

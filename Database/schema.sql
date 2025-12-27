@@ -17,6 +17,7 @@ CREATE TABLE Categories (
     id INT PRIMARY KEY IDENTITY(1,1),
     name NVARCHAR(100) NOT NULL,
     description NVARCHAR(500),
+    image_url NVARCHAR(500),  -- URL ảnh danh mục
     status BIT DEFAULT 1,  -- 1 = active, 0 = inactive
     created_at DATETIME DEFAULT GETDATE()
 );
@@ -84,11 +85,11 @@ INSERT INTO Admins (username, password, name, email, status)
 VALUES ('admin', 'admin123', 'Administrator', 'admin@example.com', 1);
 
 -- Danh mục mẫu
-INSERT INTO Categories (name, description, status) VALUES
-('Đồ điện tử', 'Các thiết bị điện tử', 1),
-('Dụng cụ', 'Các dụng cụ cầm tay', 1),
-('Đồ nội thất', 'Bàn ghế, tủ kệ', 1),
-('Thiết bị gia đình', 'Máy móc gia đình', 1);
+INSERT INTO Categories (name, description, image_url, status) VALUES
+('Đồ điện tử', 'Các thiết bị điện tử', 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400', 1),
+('Dụng cụ', 'Các dụng cụ cầm tay', 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400', 1),
+('Đồ nội thất', 'Bàn ghế, tủ kệ', 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400', 1),
+('Thiết bị gia đình', 'Máy móc gia đình', 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=400', 1);
 
 -- Sản phẩm mẫu
 INSERT INTO Products (name, description, price, rental_price, sale_price, type, category_id, stock, status) VALUES

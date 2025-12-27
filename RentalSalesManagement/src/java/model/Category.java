@@ -22,15 +22,17 @@ public class Category {
     private int id;
     private String name;
     private String description;
+    private String imageUrl;
     private boolean status;
     
     public Category() {
     }
     
-    public Category(int id, String name, String description, boolean status) {
+    public Category(int id, String name, String description, String imageUrl, boolean status) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.imageUrl = imageUrl;
         this.status = status;
     }
     
@@ -65,6 +67,14 @@ public class Category {
     
     public void setStatus(boolean status) {
         this.status = status;
+    }
+    
+    public String getImageUrl() {
+        return imageUrl;
+    }
+    
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
 

@@ -198,6 +198,126 @@ public class ProductDAO extends DBContext {
     }
     
     /**
+     * Lấy danh sách sản phẩm có phân trang
+     * 
+     * @param page Số trang (bắt đầu từ 1)
+     * @param pageSize Số sản phẩm mỗi trang
+     * @return List<Product> - Danh sách sản phẩm
+     */
+    public List<Product> getAllProductsWithPagination(int page, int pageSize) {
+        List<Product> products = new ArrayList<>();
+        int offset = (page - 1) * pageSize;
+        String sql = "SELECT p.*, c.name AS category_name FROM Products p "
+                   + "LEFT JOIN Categories c ON p.category_id = c.id "
+                   + "ORDER BY p.id DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, offset);
+            stmt.setInt(2, pageSize);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                products.add(mapResultSetToProduct(rs));
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error getting products with pagination: {0}", e.getMessage());
+        }
+        return products;
+    }
+    
+    /**
+     * Lấy tổng số sản phẩm
+     * 
+     * @return int - Tổng số sản phẩm
+     */
+    public int getTotalProducts() {
+        String sql = "SELECT COUNT(*) FROM Products";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error getting total products: {0}", e.getMessage());
+        }
+        return 0;
+    }
+    
+    /**
+     * Lấy sản phẩm theo category có phân trang
+     * 
+     * @param categoryId ID của danh mục
+     * @param page Số trang
+     * @param pageSize Số sản phẩm mỗi trang
+     * @return List<Product> - Danh sách sản phẩm
+     */
+    public List<Product> getProductsByCategoryWithPagination(int categoryId, int page, int pageSize) {
+        List<Product> products = new ArrayList<>();
+        int offset = (page - 1) * pageSize;
+        String sql = "SELECT p.*, c.name AS category_name FROM Products p "
+                   + "LEFT JOIN Categories c ON p.category_id = c.id "
+                   + "WHERE p.category_id = ? ORDER BY p.id DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, categoryId);
+            stmt.setInt(2, offset);
+            stmt.setInt(3, pageSize);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                products.add(mapResultSetToProduct(rs));
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error getting products by category with pagination: {0}", e.getMessage());
+        }
+        return products;
+    }
+    
+    /**
+     * Lấy tổng số sản phẩm theo category
+     * 
+     * @param categoryId ID của danh mục
+     * @return int - Tổng số sản phẩm
+     */
+    public int getTotalProductsByCategory(int categoryId) {
+        String sql = "SELECT COUNT(*) FROM Products WHERE category_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, categoryId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error getting total products by category: {0}", e.getMessage());
+        }
+        return 0;
+    }
+    
+    /**
+     * Lấy sản phẩm tương tự cùng category (trừ sản phẩm hiện tại)
+     * 
+     * @param categoryId ID của danh mục
+     * @param excludeProductId ID sản phẩm cần loại trừ
+     * @param limit Số lượng sản phẩm tối đa
+     * @return List<Product> - Danh sách sản phẩm tương tự
+     */
+    public List<Product> getSimilarProducts(int categoryId, int excludeProductId, int limit) {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT TOP (?) p.*, c.name AS category_name FROM Products p "
+                   + "LEFT JOIN Categories c ON p.category_id = c.id "
+                   + "WHERE p.category_id = ? AND p.id != ? AND p.status = 1 "
+                   + "ORDER BY p.id DESC";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, limit);
+            stmt.setInt(2, categoryId);
+            stmt.setInt(3, excludeProductId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                products.add(mapResultSetToProduct(rs));
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error getting similar products: {0}", e.getMessage());
+        }
+        return products;
+    }
+    
+    /**
      * Chuyển đổi ResultSet thành đối tượng Product
      * 
      * @param rs ResultSet từ database
