@@ -2,10 +2,16 @@
 
 <style>
     .footer {
-        background: #667eea;
+        background: #2f3542;
         color: white;
         padding: 50px 0 20px;
         margin-top: 60px;
+        width: 100%;
+        min-width: 100%;
+        box-sizing: border-box;
+        position: relative;
+        left: 0;
+        right: 0;
     }
     
     .footer-container {
@@ -13,7 +19,7 @@
         margin: 0 auto;
         padding: 0 20px;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
         gap: 40px;
     }
     
@@ -21,12 +27,15 @@
         color: white;
         margin-bottom: 20px;
         font-size: 18px;
+        font-weight: bold;
     }
     
     .footer-column p {
         color: rgba(255,255,255,0.8);
         line-height: 1.8;
         font-size: 14px;
+        margin-bottom: 10px;
+        margin-top: 0;
     }
     
     .footer-column ul {
@@ -50,36 +59,23 @@
         padding-left: 5px;
     }
     
-    .social-icons {
-        display: flex;
-        gap: 15px;
-        margin-top: 15px;
+    .footer-logo {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 15px;
     }
     
-    .social-icons a {
-        width: 40px;
-        height: 40px;
-        background: rgba(255,255,255,0.1);
-        border-radius: 50%;
+    .footer-contact {
         display: flex;
         align-items: center;
-        justify-content: center;
-        color: white;
-        text-decoration: none;
+        gap: 10px;
+        margin-bottom: 10px;
+        color: rgba(255,255,255,0.8);
+        font-size: 14px;
+    }
+    
+    .footer-contact-icon {
         font-size: 18px;
-        transition: all 0.3s;
-        overflow: hidden;
-    }
-    
-    .social-icons a img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    
-    .social-icons a:hover {
-        background: rgba(255,255,255,0.2);
-        transform: scale(1.1);
     }
     
     .footer-bottom {
@@ -114,86 +110,80 @@
         width: auto;
         object-fit: contain;
     }
+    
+    @media (max-width: 968px) {
+        .footer-container {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+    }
 </style>
 
 <div class="footer">
     <div class="footer-container">
         <div class="footer-column">
-            <h4>ChoThuêĐồDùng</h4>
-            <p>Giải pháp tiết kiệm cho mọi nhu cầu của bạn. Chúng tôi cung cấp dịch vụ cho thuê và bán đồ dùng chất lượng cao với giá cả hợp lý.</p>
-            <div class="social-icons">
-                <a href="#" title="Facebook">
-                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg" alt="Facebook" />
-                </a>
-                <a href="#" title="Twitter">
-                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/twitter.svg" alt="Twitter" />
-                </a>
-                <a href="#" title="Instagram">
-                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" />
-                </a>
-                <a href="#" title="Pinterest">
-                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/pinterest.svg" alt="Pinterest" />
-                </a>
+            <div class="footer-logo">DIGITECH</div>
+            <div class="footer-contact">
+                <span class="footer-contact-icon">📍</span>
+                <span>Tầng 6, Tòa nhà Ledoco, 266 Đội Cấn, Quận Ba Đình, TP Hà Nội</span>
+            </div>
+            <div class="footer-contact">
+                <span class="footer-contact-icon">📞</span>
+                <span>1900 6750</span>
+            </div>
+            <div class="footer-contact">
+                <span class="footer-contact-icon">✉️</span>
+                <span>support@sapo.vn</span>
             </div>
         </div>
         
         <div class="footer-column">
-            <h4>Liên kết nhanh</h4>
+            <h4>VỀ CHÚNG TÔI</h4>
             <ul>
-                <li><a href="about.jsp">Về chúng tôi</a></li>
+                <li><a href="home">Trang chủ</a></li>
+                <li><a href="about.jsp">Giới thiệu</a></li>
+                <li><a href="products">Sản phẩm</a></li>
+                <li><a href="news.jsp">Tin tức</a></li>
                 <li><a href="contact.jsp">Liên hệ</a></li>
-                <li><a href="#">Chính sách bảo mật</a></li>
-                <li><a href="#">Điều khoản sử dụng</a></li>
             </ul>
         </div>
         
         <div class="footer-column">
-            <h4>Mua sắm</h4>
+            <h4>CHÍNH SÁCH</h4>
             <ul>
-                <li><a href="products?category=1">Đồ điện tử</a></li>
-                <li><a href="products?category=2">Dụng cụ</a></li>
-                <li><a href="products?category=3">Đồ nội thất</a></li>
-                <li><a href="products?category=4">Thiết bị gia đình</a></li>
-            </ul>
-        </div>
-        
-        <div class="footer-column">
-            <h4>Thông tin</h4>
-            <ul>
-                <li><a href="about.jsp">Về chúng tôi</a></li>
-                <li><a href="contact.jsp">Liên hệ</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Tuyển dụng</a></li>
-            </ul>
-        </div>
-        
-        <div class="footer-column">
-            <h4>Dịch vụ khách hàng</h4>
-            <ul>
-                <li><a href="#">Tài khoản</a></li>
-                <li><a href="#">Theo dõi đơn hàng</a></li>
-                <li><a href="#">Yêu thích</a></li>
+                <li><a href="#">Chính sách giao hàng</a></li>
                 <li><a href="#">Chính sách đổi trả</a></li>
-                <li><a href="#">Câu hỏi thường gặp</a></li>
+                <li><a href="#">Chính sách bảo hành</a></li>
+                <li><a href="#">Hướng dẫn trả góp</a></li>
             </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h4>TƯ VẤN KHÁCH HÀNG</h4>
+            <p>Mua hàng: 1900 6750</p>
+            <p>Khiếu nại: 1900 6750</p>
+            <p>Bảo hành: 1900 6750</p>
+        </div>
+        
+        <div class="footer-column">
+            <h4>PHƯƠNG THỨC THANH TOÁN</h4>
+            <div class="payment-methods" style="justify-content: flex-start;">
+                <span class="payment-icon">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/visa.svg" alt="Visa" />
+                </span>
+                <span class="payment-icon">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/mastercard.svg" alt="Mastercard" />
+                </span>
+                <span class="payment-icon">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/jcb.svg" alt="JCB" />
+                </span>
+                <span class="payment-icon">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/zalopay.svg" alt="ZaloPay" />
+                </span>
+            </div>
         </div>
     </div>
     
     <div class="footer-bottom">
-        <p>Copyright © 2025 ChoThuêĐồDùng. Tất cả quyền được bảo lưu.</p>
-        <div class="payment-methods">
-            <span class="payment-icon">
-                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/visa.svg" alt="Visa" />
-            </span>
-            <span class="payment-icon">
-                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/mastercard.svg" alt="Mastercard" />
-            </span>
-            <span class="payment-icon">
-                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/paypal.svg" alt="PayPal" />
-            </span>
-            <span class="payment-icon">
-                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/momo.svg" alt="MoMo" style="filter: brightness(0) invert(1);" />
-            </span>
-        </div>
+        <p>© Bản quyền thuộc về Lê Nam | Cung cấp bởi Sapo</p>
     </div>
 </div>

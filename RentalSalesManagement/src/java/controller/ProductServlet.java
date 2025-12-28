@@ -35,6 +35,11 @@ public class ProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        // Set encoding để tránh lỗi encoding
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        
         String action = request.getParameter("action");
         String idParam = request.getParameter("id");
         String categoryParam = request.getParameter("category");

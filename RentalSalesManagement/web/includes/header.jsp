@@ -1,234 +1,303 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    String requestURI = request.getRequestURI();
+    String currentPage = "";
+    
+    if (requestURI.contains("home") || requestURI.endsWith("/") || requestURI.endsWith("index.jsp")) {
+        currentPage = "home";
+    } else if (requestURI.contains("about")) {
+        currentPage = "about";
+    } else if (requestURI.contains("products")) {
+        currentPage = "products";
+    } else if (requestURI.contains("contact")) {
+        currentPage = "contact";
+    }
+%>
 
 <style>
-  /* Main Header - White */
-  .main-header {
-    background: white;
-    padding: 20px 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    animation: slideDown 0.5s ease-out;
-  }
-
-  @keyframes slideDown {
-    from {
-      transform: translateY(-100%);
-      opacity: 0;
+    /* Top Bar - Green */
+    .top-bar {
+        background: #28a745;
+        color: white;
+        padding: 8px 0;
+        font-size: 13px;
     }
-    to {
-      transform: translateY(0);
-      opacity: 1;
+
+    .top-bar-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
-  }
 
-  .main-header-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 30px;
-    height: 70px;
-  }
-
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 28px;
-    font-weight: bold;
-    color: #667eea;
-    text-decoration: none;
-    transition: transform 0.3s;
-    height: 100%;
-  }
-
-  .logo:hover {
-    transform: scale(1.05);
-  }
-
-  .logo-icon {
-    font-size: 32px;
-    animation: bounce 2s infinite;
-  }
-
-  @keyframes bounce {
-    0%,
-    100% {
-      transform: translateY(0);
+    .top-bar-left {
+        display: flex;
+        gap: 20px;
+        align-items: center;
     }
-    50% {
-      transform: translateY(-5px);
+
+    .top-bar-right {
+        display: flex;
+        gap: 15px;
+        align-items: center;
     }
-  }
 
-  .search-bar {
-    flex: 1;
-    position: relative;
-    max-width: 600px;
-    display: flex;
-    align-items: center;
-  }
+    .top-bar a {
+        color: white;
+        text-decoration: none;
+        transition: opacity 0.3s;
+    }
 
-  .search-bar input {
-    width: 100%;
-    padding: 12px 50px 12px 20px;
-    border: 2px solid #e0e0e0;
-    border-radius: 30px;
-    font-size: 14px;
-    transition: all 0.3s;
-    line-height: normal;
-    box-sizing: border-box;
-    height: 44px;
-    vertical-align: middle;
-  }
+    .top-bar a:hover {
+        opacity: 0.8;
+    }
 
-  .search-bar input:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  }
+    /* Main Header - Dark Blue */
+    .main-header {
+        background: #1e3a5f;
+        color: white;
+        padding: 15px 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
 
-  .search-bar button {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: #667eea;
-    color: white;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-
-  .search-bar button:hover {
-    background: #5568d3;
-    transform: translateY(-50%) scale(1.05);
-  }
-
-  .admin-login-btn {
-    padding: 10px 20px;
-    background: #667eea;
-    color: white;
-    text-decoration: none;
-    border-radius: 25px;
-    font-size: 14px;
-    font-weight: bold;
-    transition: all 0.3s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-    height: 44px;
-    box-sizing: border-box;
-  }
-
-  .admin-login-btn:hover {
-    background: #5568d3;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-  }
-
-  /* Navigation Bar - Blue */
-  .nav-bar {
-    background: #667eea;
-    padding: 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-
-  .nav-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .nav-menu {
-    display: flex;
-    gap: 0;
-    justify-content: center;
-  }
-
-  .nav-menu a {
-    color: white;
-    text-decoration: none;
-    padding: 15px 25px;
-    display: block;
-    transition: all 0.3s;
-    position: relative;
-    font-weight: 500;
-  }
-
-  .nav-menu a::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%) scaleX(0);
-    width: 80%;
-    height: 3px;
-    background: white;
-    transition: transform 0.3s;
-  }
-
-  .nav-menu a:hover::after {
-    transform: translateX(-50%) scaleX(1);
-  }
-
-  .nav-menu a:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  @media (max-width: 768px) {
     .main-header-content {
-      flex-wrap: wrap;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 28px;
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+        transition: transform 0.3s;
+    }
+
+    .logo:hover {
+        transform: scale(1.05);
     }
 
     .search-bar {
-      order: 3;
-      width: 100%;
+        flex: 1;
+        max-width: 500px;
+        position: relative;
+
+        display: flex;
+        align-items: center;
+
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .search-bar input {
+        width: 100%;
+        height: 44px;
+        line-height: 44px;
+        padding: 0 52px 0 20px;
+        border: none;
+        border-radius: 25px;
+        font-size: 14px;
+    }
+    
+    .search-bar input:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+    }
+
+    .search-bar button {
+        position: absolute;
+        right: 6px;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 36px;
+        padding: 0 16px;
+        border: none;
+        border-radius: 18px;
+        cursor: pointer;
+    }
+
+    .search-bar button:hover {
+        background: #5568d3;
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .header-action {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+        transition: opacity 0.3s;
+    }
+
+    .header-action:hover {
+        opacity: 0.8;
+    }
+
+    .header-action-icon {
+        font-size: 20px;
+    }
+
+    /* Navigation Bar - Blue */
+    .nav-bar {
+        background: #2563eb;
+        padding: 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        gap: 0;
+    }
+
+    .category-btn {
+        background: #1e40af;
+        color: white;
+        padding: 15px 25px;
+        border: none;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: background 0.3s;
+    }
+
+    .category-btn:hover {
+        background: #1e3a8a;
     }
 
     .nav-menu {
-      flex-wrap: wrap;
+        display: flex;
+        gap: 0;
+        flex: 1;
+        justify-content: center;
     }
-  }
+
+    .nav-menu a {
+        color: white;
+        text-decoration: none;
+        padding: 15px 45px;
+        display: block;
+        transition: all 0.3s;
+        position: relative;
+        font-weight: 500;
+        overflow: hidden;
+    }
+
+    .nav-menu a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 3px;
+        background: white;
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+
+    .nav-menu a:hover::after {
+        width: 100%;
+    }
+
+    .nav-menu a.active::after {
+        width: 100%;
+    }
+
+    .nav-menu a:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    @media (max-width: 768px) {
+        .main-header-content {
+            flex-wrap: wrap;
+        }
+
+        .search-bar {
+            order: 3;
+            width: 100%;
+        }
+
+        .nav-menu {
+            flex-wrap: wrap;
+        }
+    }
 </style>
+
+<!-- Top Bar -->
+<div class="top-bar">
+    <div class="top-bar-content">
+        <div class="top-bar-left">
+            <span>Giờ mở cửa: 08:30 - 21:00 các ngày trong tuần</span>
+        </div>
+        <div class="top-bar-right">
+        </div>
+    </div>
+</div>
 
 <!-- Main Header -->
 <div class="main-header">
-  <div class="main-header-content">
-    <a href="home" class="logo">
-      <span class="logo-icon">📦</span>
-      <span>ChoThuêĐồDùng</span>
-    </a>
+    <div class="main-header-content">
+        <a href="home" class="logo">
+            <span>DIGITECH</span>
+        </a>
 
-    <form method="GET" action="products" class="search-bar">
-      <input type="text" name="keyword" placeholder="Tìm kiếm sản phẩm..." />
-      <button type="submit">🔍</button>
-    </form>
+        <form method="GET" action="products" class="search-bar">
+            <input type="text" name="keyword" placeholder="Tìm kiếm..." />
+            <button type="submit">🔍</button>
+        </form>
 
-    <a href="admin/login.jsp" class="admin-login-btn">Đăng nhập Admin</a>
-  </div>
+        <div class="header-actions">
+            <a href="tel:19006750" class="header-action">
+                <span class="header-action-icon">📞</span>
+                <span>Có mua hàng<br>1900 6750</span>
+            </a>
+            <a href="admin/login.jsp" class="header-action">
+                <span class="header-action-icon">👤</span>
+                <span>Tài khoản<br>đăng nhập</span>
+            </a>
+            <a href="#" class="header-action">
+                <span class="header-action-icon">🛒</span>
+                <span>Giỏ hàng</span>
+            </a>
+        </div>
+    </div>
 </div>
 
 <!-- Navigation Bar -->
 <div class="nav-bar">
-  <div class="nav-content">
-    <nav class="nav-menu">
-      <a href="home">Trang chủ</a>
-      <a href="products">Sản phẩm</a>
-      <a href="about.jsp">Giới thiệu</a>
-      <a href="contact.jsp">Liên hệ</a>
-    </nav>
-  </div>
+    <div class="nav-content">
+        <nav class="nav-menu">
+            <a href="home" class="<%= currentPage.equals("home") ? "active" : "" %>">Trang chủ</a>
+            <a href="about.jsp" class="<%= currentPage.equals("about") ? "active" : "" %>">Giới thiệu</a>
+            <a href="products" class="<%= currentPage.equals("products") ? "active" : "" %>">Sản phẩm</a>
+            <a href="contact.jsp" class="<%= currentPage.equals("contact") ? "active" : "" %>">Liên hệ</a>
+        </nav>
+    </div>
 </div>
